@@ -1,0 +1,23 @@
+{
+  "name": "teamtemplateengine",
+  "version": "1.0.0",
+  "description": "Template Engine for team roster",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attack-theoRy/TeamTemplateEngine.git"
+  },
+  "author": "Pirooz Wallace",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/attack-theoRy/TeamTemplateEngine/issues"
+  },
+  "homepage": "https://github.com/attack-theoRy/TeamTemplateEngine#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.3"
+  }
+}
