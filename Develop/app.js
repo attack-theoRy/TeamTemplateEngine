@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let totalEmployees = []
+let employeeIDs = []
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -34,4 +37,58 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
+const ManagerQ = [
+    // name prompt
+    {
+        type: "input",
+        message: "What is the manager's name on this team?",
+        name: "name",
+    },
+    // email prompt
+    {
+        type: 'input',
+        message: "What is your manager's email address?",
+        name: 'email',
+    }
+    // ID prompt
+    {
+        type: "input",
+        message: "What is your manager's ID number?",
+        name: "ID"
+      },
+      // phone number prompt
+      {
+        type: "number",
+        message: "What is your manager's office phone number?",
+        name: "officeNumber"
+      },
+      // second part of questions to add interns and engineers
+      {
+        type: "list",
+        message: "What kind of team member would you like to add now?",
+        choices: ["Engineer", "Intern", "No more, i've had enough!"],
+        name: "interngineer"
+      }
+]
 
+const begin = () => {
+    inquirer.prompt(ManagerQ).then((response)=> {
+        // debug check
+        console.log(response)
+
+        const addManager = new Manager(response.name, response.ID, response.email, response.officeNumber)
+
+        totalEmployees.push(addManager)
+        employeeIDs.push(response.ID)
+
+        switch (response.interngineer){
+            case "Engineer":
+                addEngineer()
+                break;
+            case "Intern":
+                addIntern()
+                break;
+
+        }
+    })
+}
