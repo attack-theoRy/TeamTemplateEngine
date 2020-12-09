@@ -88,7 +88,61 @@ const begin = () => {
             case "Intern":
                 addIntern()
                 break;
+            default:
+                fs.writeFile(outputPath, render(totalEmployees), function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                });
+                // debug check
+                console.log("success! rendered to file!")
+                break;
+
 
         }
     })
 }
+
+const addEngineer = () => {
+
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your engineer's name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the engineer's ID number? ",
+            name: "ID"
+        },
+        {
+            type: "input",
+            message: "What is the engineer's email address?",
+            name: "email"
+        }
+        {
+            type: "input",
+            message: "What is the engineer's Github user name?",
+            name: "github"
+        }
+    ]).then((response) => {
+
+        // make new engineer
+        const addEngineer = new Engineer(response.name, response.ID, response.email, response.github)
+
+        // add it to employees
+        totalEmployees.push(addEngineer)
+        employeeIDs.push(response.ID)
+
+        promptLoop()
+    })
+
+}
+
+const promptLoop() => {
+
+    inquirer.prompt
+}
+
+begin()
