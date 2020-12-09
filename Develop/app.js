@@ -103,6 +103,7 @@ const begin = () => {
     })
 }
 
+// adding an engineer function + questions
 const addEngineer = () => {
 
     inquirer.prompt([
@@ -140,9 +141,31 @@ const addEngineer = () => {
 
 }
 
-const promptLoop() => {
+// adding an intern function + questions
+const addIntern = () => {
 
-    inquirer.prompt
+}
+
+const promptLoop = () => {
+
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: "What kind of team member do you want to add",
+            choices: ["Engineer", "Intern", "No more thanks!"],
+            name: 'interngineer'
+        }
+    ]).then((response) => {
+
+        switch (response.interngineer) {
+            case "Engineer":
+                addEngineer()
+                break;
+            
+            case "Intern":
+                addIntern()
+        }
+    })
 }
 
 begin()
