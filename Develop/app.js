@@ -113,7 +113,7 @@ const addEngineer = () => {
             name: "name"
         },
         {
-            type: "input",
+            type: "number",
             message: "What is the engineer's ID number? ",
             name: "ID"
         },
@@ -143,6 +143,42 @@ const addEngineer = () => {
 
 // adding an intern function + questions
 const addIntern = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the intern's name?",
+            name: "name"
+        },
+        {
+            type: "number",
+            message: "What is the intern's ID number?",
+            name: "ID"
+        },
+        {
+            type: "input",
+            message: "What is the intern's email address?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What school does the intern attend?",
+            name: "school"
+        }
+    ]).then((response) => {
+
+        // create new intern using responses
+        const addIntern = newIntern(response.name, response.ID, response.email, response.school)
+
+        // add it to the stack
+        totalEmployees.push(addIntern)
+
+        // employee ID 
+        employeeIDs.push(response.ID)
+
+        // ask questions again
+        promptLoop()
+    })
+
 
 }
 
