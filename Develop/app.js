@@ -49,7 +49,7 @@ const ManagerQ = [
         type: 'input',
         message: "What is your manager's email address?",
         name: 'email',
-    }
+    },
     // ID prompt
     {
         type: "input",
@@ -121,7 +121,7 @@ const addEngineer = () => {
             type: "input",
             message: "What is the engineer's email address?",
             name: "email"
-        }
+        },
         {
             type: "input",
             message: "What is the engineer's Github user name?",
@@ -167,7 +167,7 @@ const addIntern = () => {
     ]).then((response) => {
 
         // create new intern using responses
-        const addIntern = newIntern(response.name, response.ID, response.email, response.school)
+        const addIntern = new Intern(response.name, response.ID, response.email, response.school)
 
         // add it to the stack
         totalEmployees.push(addIntern)
@@ -200,6 +200,16 @@ const promptLoop = () => {
             
             case "Intern":
                 addIntern()
+                break;
+
+            default:
+                fs.writeFile(outputPath, render(totalEmployees), function(err) {
+                    if (err) {
+                        throw err;
+                    }
+                })
+                // debug check
+                console.log("Success!")
         }
     })
 }
