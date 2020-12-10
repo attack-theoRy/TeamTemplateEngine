@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
 
 let totalEmployees = []
 let employeeIDs = []
@@ -44,18 +45,25 @@ const ManagerQ = [
         message: "What is the manager's name on this team?",
         name: "name",
     },
+    // ID prompt
+    {
+        type: "number",
+        message: "What is your manager's ID number?",
+        name: "ID"
+    },
     // email prompt
     {
         type: 'input',
         message: "What is your manager's email address?",
         name: 'email',
+        validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
+        
     },
-    // ID prompt
-    {
-        type: "input",
-        message: "What is your manager's ID number?",
-        name: "ID"
-      },
+
       // phone number prompt
       {
         type: "number",
@@ -103,6 +111,23 @@ const begin = () => {
     })
 }
 
+const checkID = (inputNumber) => {
+
+    // if its not a number, retun false
+    if(isNaN(inputNumber))
+        return false;
+
+    // if the ID is the same as the other IDs, return false
+    for(var i = 0; i < employeeIDs.length; i++)
+    {
+        if(inputNumber === employeeIDs[i])
+            return false
+    }
+
+    // if passes both those tests, then return true
+    return true
+}
+
 // adding an engineer function + questions
 const addEngineer = () => {
 
@@ -120,7 +145,12 @@ const addEngineer = () => {
         {
             type: "input",
             message: "What is the engineer's email address?",
-            name: "email"
+            name: "email",
+            validate: function(email)
+            {
+                // Regex mail check (return true if valid mail)
+                return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+            }
         },
         {
             type: "input",
@@ -152,12 +182,17 @@ const addIntern = () => {
         {
             type: "number",
             message: "What is the intern's ID number?",
-            name: "ID"
+            name: "ID",
+            validate
         },
         {
             type: "input",
             message: "What is the intern's email address?",
-            name: "email"
+            validate: function(email)
+            {
+                // Regex mail check (return true if valid mail)
+                return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+            }
         },
         {
             type: "input",
