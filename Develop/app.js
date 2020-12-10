@@ -49,7 +49,8 @@ const ManagerQ = [
     {
         type: "number",
         message: "What is your manager's ID number?",
-        name: "ID"
+        name: "ID",
+        validate: checkID
     },
     // email prompt
     {
@@ -140,7 +141,8 @@ const addEngineer = () => {
         {
             type: "number",
             message: "What is the engineer's ID number? ",
-            name: "ID"
+            name: "ID",
+            validate : checkID
         },
         {
             type: "input",
@@ -183,7 +185,7 @@ const addIntern = () => {
             type: "number",
             message: "What is the intern's ID number?",
             name: "ID",
-            validate
+            validate: checkID,
         },
         {
             type: "input",
