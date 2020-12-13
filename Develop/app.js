@@ -15,6 +15,25 @@ let totalEmployees = []
 let employeeIDs = []
 
 
+// make sure the number hasn't been repeated
+const checkID = (inputNumber) => {
+
+    // if its not a number, return false
+
+    if(isNaN(inputNumber))
+        return false;
+
+    // if the ID is the same as the other IDs, return false
+    for(var i = 0; i < employeeIDs.length; i++)
+    {
+        if(inputNumber === employeeIDs[i])
+            return "Duplicate ID!"
+    }
+
+    // if passes both those tests, then return true
+    return true
+}
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -38,6 +57,7 @@ let employeeIDs = []
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
+// the manager questions
 const ManagerQ = [
     // name prompt
     {
@@ -80,6 +100,7 @@ const ManagerQ = [
       }
 ]
 
+// the main function that starts the prompt
 const begin = () => {
     inquirer.prompt(ManagerQ).then((response)=> {
         // debug check
@@ -90,6 +111,7 @@ const begin = () => {
         totalEmployees.push(addManager)
         employeeIDs.push(response.ID)
 
+        // switch the logic depending on if the user chose engineer or intern
         switch (response.interngineer){
             case "Engineer":
                 addEngineer()
@@ -112,22 +134,6 @@ const begin = () => {
     })
 }
 
-const checkID = (inputNumber) => {
-
-    // if its not a number, retun false
-    if(isNaN(inputNumber))
-        return false;
-
-    // if the ID is the same as the other IDs, return false
-    for(var i = 0; i < employeeIDs.length; i++)
-    {
-        if(inputNumber === employeeIDs[i])
-            return false
-    }
-
-    // if passes both those tests, then return true
-    return true
-}
 
 // adding an engineer function + questions
 const addEngineer = () => {
@@ -168,6 +174,7 @@ const addEngineer = () => {
         totalEmployees.push(addEngineer)
         employeeIDs.push(response.ID)
 
+        // loop again if user wants to add more employees
         promptLoop()
     })
 
