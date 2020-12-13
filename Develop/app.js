@@ -104,7 +104,7 @@ const ManagerQ = [
 const begin = () => {
     inquirer.prompt(ManagerQ).then((response)=> {
         // debug check
-        console.log(response)
+       // console.log(response)
 
         const addManager = new Manager(response.name, response.ID, response.email, response.officeNumber)
 
@@ -192,11 +192,12 @@ const addIntern = () => {
             type: "number",
             message: "What is the intern's ID number?",
             name: "ID",
-            validate: checkID,
+            validate: checkID
         },
         {
             type: "input",
             message: "What is the intern's email address?",
+            name: "email",
             validate: function(email)
             {
                 // Regex mail check (return true if valid mail)
